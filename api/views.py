@@ -19,7 +19,9 @@ class MovieViewSet(viewsets.ModelViewSet):
             stars = request.data['stars']
             # user = request.user
             user = User.objects.get(id=1)
+            print(user.username)
 
+            # To update rating score
             try:
                 rating = Rating.objects.get(user=user.id, movie=movie.id)
                 rating.stars = stars
@@ -28,9 +30,11 @@ class MovieViewSet(viewsets.ModelViewSet):
                 response = {'message': 'Rating updated',
                             'result': serializer.data}
                 return Response(response, status=status.HTTP_200_OK)
+
+            # To create new rating
             except:
                 rating = Rating.objects.create(
-                    user=user.id, movie=movie, stars=stars)
+                    user=user, movie=movie, stars=stars)
                 serializer = RatingSerializer(rating, many=False)
                 response = {'message': 'Rating created',
                             'result': serializer.data}
