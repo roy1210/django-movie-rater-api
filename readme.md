@@ -1,0 +1,2 @@
+- djangorest-framework
+- django-cors-header: To fix CORS problem when serve with react
